@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	lang="pt-br">
+	
+	<h:head>
+		<meta http-equi="Content=Type" content="text/html; charset=ISO-8859-1"/>
+		<title>Cadastro</title>
+	</h:head>
+	<body>
+		<script>
+		<!-- Verifica se as entradas de senha pelo usuário são iguais -->
+			function verificarTelas () {
+				var senha1 = document.getElementById("form:s1").value;
+				var senha2 = document.getElementById("form:s2").value;
+				
+				if (senha1 == senha2) {
+					return true;
+				}
+				
+				alert("As senhas não coincidem!");
+				return false;
+			}
+		</script>
+		
+		<h:form id= "form"> 
+			<!-- columns indica a quantidade de colunas a serem delimitadas no panelGrid -->
+			<h:panelGrid columns="2">
+				<!-- facet é a tag que encabeça os componentes do panelGrid -->
+				<f:facet name="header">Cadastro de Usuário</f:facet>
+				Nome:<h:inputText value="#{cadastro.nome}"/>
+				<!-- É realizado um Binding ou link com o @Named da página CadastroBean,
+					 que no caso é "cadastro", depois vem a referência à variável criada
+					 no CadastroBean, indicando que a entrada do usuário no input deverá ser armazenada nela -->
+				E-mail:<h:inputText value="#{cadastro.email}"/>
+				Senha:<h:inputText id="s1" value="#{cadastro.senha1}"/>
+				Confirmação de Senha:<h:inputText id="s2" value="#{cadastro.senha2}"/>
+				Sexo:
+				<!-- Mesma função do "input type=radio" do html -->
+				<h:selectOneRadio> 
+					<f:selectItem itemValue="F" itemLabel="Feminino"> </f:selectItem>
+					<f:selectItem itemValue="M" itemLabel="Masculino"> </f:selectItem>
+				</h:selectOneRadio>
+				Deseja receber e-mail?
+				<h:selectBooleanCheckbox value="#{cadastro.receberEmail}" /> 
+				Observações:
+				<!-- Mesma função do "input type=textarea" do html, rows e cols delimitam, respectivamente,
+					 o máximo de linhas a serem suportadas e a largura que será adotada pelo textarea -->
+				<h:inputTextarea value="#{cadastro.observacoes}" rows="4" cols="30"/>
+				Linguagem de programação:
+				<h:selectManyCheckbox value="#{cadastro.linguagens}">
+					<!-- Nesse cso acontece o processo inverso do comentado acima, ainda com o bindind porém ao invés de
+						 enviar as entradas do usuário para a página CadastroBean, ele está trazendo da página Linguagens os
+						 valores lá especificados como opções para a seleção do usuário -->
+					<f:selectItems value="#{cadastro.listaLinguagens}" var="l" itemValue="#{l.id}" itemLabel="#{l.nome}" />				
+				</h:selectManyCheckbox>
+			</h:panelGrid>	
+			
+			<!-- Botão com um evento quando for clicado, executando o javascript lá de cima -->
+			<h:commandButton value="Cadastrar" action="info" onclick = "return verificarTelas()"> </h:commandButton>
+		</h:form>
+	</body>
+</html>

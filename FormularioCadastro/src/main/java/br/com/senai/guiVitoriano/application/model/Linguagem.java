@@ -6,10 +6,10 @@ public class Linguagem {
 	private Integer id;
 	private String nome;
 	
-	//Vetor constante sendo instânciado
+	//Vetor de constantes sendo instânciado
 	public static final Linguagem [] LINGUAGENS;
 	
-	//Itens constantes do vetor acima
+	//As constantes do vetor acima
 	static {
 		LINGUAGENS = new Linguagem[5];
 		LINGUAGENS[0] = new Linguagem(1, "Java");
